@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear loading message
       activitiesList.innerHTML = "";
 
+      // Clear select options (keep default)
+      activitySelect.innerHTML = '<option value="">-- Select an activity --</option>';
+
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
         const activityCard = document.createElement("div");
@@ -25,7 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants-container">
+            <p class="participants-label">Participants:</p>
+            <ul class="participants-list"></ul>
+          </div>
         `;
+
+        // Render participants (each li uses 'participant' in class)
+        const ul = activityCard.querySelector(".participants-list");
+        details.participants.forEach((email) => {
+          const li = document.createElement("li");
+          li.className = "participant-item";
+          li.textContent = email;
+          ul.appendChild(li);
+        });
 
         activitiesList.appendChild(activityCard);
 
@@ -35,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = name;
         activitySelect.appendChild(option);
       });
+      console.log("Updated participant lists for activities"); // participant
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
       console.error("Error fetching activities:", error);
@@ -62,6 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+
+        // Re-fetch activities to refresh participant lists
+        await fetchActivities();
+        console.log("Refreshed activities after participant signup"); // participant
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";

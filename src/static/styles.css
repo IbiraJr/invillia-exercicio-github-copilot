@@ -16,28 +16,50 @@ body {
 }
 
 header {
-  text-align: center;
-  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(26, 35, 126, 0.12);
   margin-bottom: 30px;
   background-color: #1a237e;
   color: white;
-  border-radius: 5px;
 }
 
 header h1 {
   margin-bottom: 10px;
+  font-size: 28px;
+  letter-spacing: 0.2px;
+}
+
+header h2 {
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.9;
 }
 
 main {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 30px;
-  justify-content: center;
+  align-items: start;
+  justify-items: center;
+  padding-bottom: 20px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   main {
     grid-template-columns: 2fr 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  section {
+    max-width: none;
+    width: 100%;
   }
 }
 
@@ -58,20 +80,47 @@ section h3 {
 }
 
 .activity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 15px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  padding: 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbff 100%);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
 
 .activity-card h4 {
-  margin-bottom: 10px;
-  color: #0066cc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+  color: #0b57a4;
+}
+
+.activity-meta {
+  font-size: 13px;
+  color: #556;
+  background: #eef4ff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #e0ebff;
 }
 
 .activity-card p {
-  margin-bottom: 8px;
+  margin: 0;
+  color: #444;
+  line-height: 1.35;
 }
 
 .form-group {
@@ -94,12 +143,14 @@ section h3 {
 }
 
 button {
+  width: 100%;
   background-color: #1a237e;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 12px 16px;
   font-size: 16px;
-  border-radius: 5px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -112,6 +163,7 @@ button:hover {
   margin-top: 20px;
   padding: 10px;
   border-radius: 4px;
+  font-size: 14px;
 }
 
 .success {
@@ -138,7 +190,67 @@ button:hover {
 
 footer {
   text-align: center;
-  margin-top: 30px;
-  padding: 20px;
+  margin-top: 40px;
+  padding: 18px;
   color: #666;
+  font-size: 14px;
+}
+
+.participants-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.participants-label {
+  font-weight: 700;
+  font-size: 13px;
+  color: #223;
+}
+
+.participants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.participant-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #1f2937;
+  background: linear-gradient(180deg, #ffffff, #f3f6ff);
+  border: 1px solid #e6eefc;
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+}
+
+.participants-list.empty::before {
+  content: "Nenhum participante ainda";
+  color: #888;
+  font-size: 13px;
+}
+
+#signup-container {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+@media (max-width: 899px) {
+  .activity-card h4 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  #signup-container {
+    position: static;
+    width: 100%;
+  }
 }
